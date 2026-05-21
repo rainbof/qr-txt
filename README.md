@@ -32,6 +32,10 @@ Zadej:
 
 a ukaž QR někomu, kdo má peníze.
 
+## Příklad
+
+![Příklad QR kódu](https://opu.peklo.biz/p/26/05/21/1779381093-8f93e.png)
+
 ## Formát
 
 Generuje QR kód ve formátu SPD (Snadné platby domácností):
