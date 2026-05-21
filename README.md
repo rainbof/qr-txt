@@ -52,3 +52,8 @@ SPD*1.0*ACC:<IBAN>*AM:<ČÁSTKA>*CC:CZK*MSG:<POPIS>
 ## Troubleshoot
 
 Pokud se něco rozbije, bude to chybějící knihovna nebo chyba. Doporučuji plač a pak se zeptat svého AI agenta.
+
+## Cesta dál
+
+Podle této dokumentace jsem to nedělal :)
+ * https://qr-platba.cz/pro-vyvojare/specifikace-formatu/
