@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ACCOUNT="CZ5855000000001265098001"
+ACCOUNT="CZ0420100000002601029991"
 
 check_dependencies() {
     echo "[*] Kontrola qrencode..."
@@ -36,7 +36,7 @@ install_dependencies() {
         if ! command -v qrencode >/dev/null 2>&1; then
             echo "[*] Instaluji qrencode..."
             sudo apt update || return 1
-            sudo apt install -y libqrencode || return 1
+            sudo apt install -y libqrencode qrencode || return 1
         fi
 
         echo "[OK] Instalace dokoncena"
@@ -74,7 +74,7 @@ generate_qr() {
     amount=$(read_amount)
     message=$(read_message)
 
-    spd="SPD*1.0*ACC:${ACCOUNT}*AM:${amount}"
+    spd="SPD*1.0*ACC:${ACCOUNT}*AM:${amount}.00"
 
     [[ -n "$message" ]] && \
         spd="${spd}*MSG:${message}"
@@ -82,9 +82,7 @@ generate_qr() {
     echo
     echo "[*] Generuji QR platbu..."
     echo
-set -x
     qrencode -m 2 -t ANSIUTF8 "${spd}"
-set +x
 }
 
 case "$1" in
@@ -98,7 +96,7 @@ case "$1" in
         ;;
     --test)
 
-        SPD='SPD*1.0*ACC:CZ5855000000001265098001*AM:50.00*MSG:neco neco neco neco neco neco neco'
+        SPD='SPD*1.0*ACC:CZ0420100000002601029991*AM:50.00*MSG:neco neco neco neco neco neco neco'
 
         for margin in 1 2 4; do
             for ecc in L M H; do
