@@ -16,6 +16,15 @@ check_dependencies() {
 }
 
 install_dependencies() {
+    function warning_end() {
+        local ret=$1
+        echo "------------------------------"
+        echo "Nezapomen si zmenit cislo uctu v promene ACCOUNT v tomto skriptu."
+        echo "------------------------------"
+        return ${ret:-0}
+    }   
+
+    echo "nezapomen si zmenit cislo uctu v promene ACCOUNT v tomto skriptu"
 
     if [[ -n "$TERMUX_VERSION" ]]; then
         echo "[*] Detekovan Termux"
@@ -23,8 +32,8 @@ install_dependencies() {
         # Check if qrencode is already installed
         if ! command -v qrencode >/dev/null 2>&1; then
             echo "[*] Instaluji qrencode..."
-            pkg update -y || return 1
-            pkg install -y libqrencode || return 1
+            pkg update -y || warning_end 1
+            pkg install -y libqrencode || warning_end 1
         fi
 
         echo "[OK] Instalace dokoncena"
@@ -35,8 +44,8 @@ install_dependencies() {
         # Check if qrencode is already installed
         if ! command -v qrencode >/dev/null 2>&1; then
             echo "[*] Instaluji qrencode..."
-            sudo apt update || return 1
-            sudo apt install -y libqrencode qrencode || return 1
+            sudo apt update || warning_end 1
+            sudo apt install -y libqrencode qrencode || warning_end 1
         fi
 
         echo "[OK] Instalace dokoncena"
@@ -47,16 +56,17 @@ install_dependencies() {
         # Check if qrencode is already installed
         if ! command -v qrencode >/dev/null 2>&1; then
             echo "[*] Instaluji qrencode..."
-            pkg update -y || return 1
-            pkg install -y libqrencode || return 1
+            pkg update -y || warning_end 1
+            pkg install -y libqrencode || warning_end 1
         fi
 
         echo "[OK] Instalace dokoncena"
 
     else
         echo "[FAIL] Nepodporovany package manager"
-        return 1
+        warning_end 1
     fi
+    warning_end 0
 }
 
 read_amount() {
